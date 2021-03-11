@@ -21,9 +21,10 @@ app.get('/users', (req, res)=> {
 });
 
 app.post('/users',  (req, res) =>{
-    console.log(`POST with body: ${req.body}`);
+    
     const user = req.body;
     user.id = 86546;
+
     const result = {
         message: 'User created',
         user
@@ -37,18 +38,20 @@ app.put('/users/:id',  (req, res) =>{
     user.id = id;
 
     const result = {
-        message: 'User updated'
+        message: 'User updated',
+        user
     }
     res.json(result);
 });
 
-app.patch('/users:id',  (req, res)=> {
+app.patch('/users/:id',  (req, res)=> {
     const id = req.params.id;
     const user = req.body;
     user.id = id;
 
     const result = {
-        message: 'User updated with patch'
+        message: 'User updated with patch',
+        user
     }
     res.json(result);
 });
