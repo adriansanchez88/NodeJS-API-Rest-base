@@ -1,12 +1,11 @@
-require('dotenv').config();
-const express = require('express')
-const app = express()
- 
-const port = process.env.PORT || 3000;
+const express = require('express');
 
-app.use(express.json());
-
-app.get('/users', (req, res)=> {
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const getAllUsers = (req, res) => {
     const users = [
         {
             id: 1,
@@ -16,11 +15,16 @@ app.get('/users', (req, res)=> {
             id: 2,
             name: 'Marta'
         },
-    ]
-  res.json(users);
-});
+    ]    
+    res.json(users);
+};
 
-app.post('/users',  (req, res) =>{
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const createUser = (req, res) => {
     
     const user = req.body;
     user.id = 86546;
@@ -30,9 +34,14 @@ app.post('/users',  (req, res) =>{
         user
     }
     res.status(201).json(result);
-});
+};
 
-app.put('/users/:id',  (req, res) =>{
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const updateUser =  (req, res) => {
     const id = req.params.id;
     const user = req.body;
     user.id = id;
@@ -42,9 +51,14 @@ app.put('/users/:id',  (req, res) =>{
         user
     }
     res.json(result);
-});
+};
 
-app.patch('/users/:id',  (req, res)=> {
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const updatePartialUser = (req, res) => {
     const id = req.params.id;
     const user = req.body;
     user.id = id;
@@ -54,17 +68,26 @@ app.patch('/users/:id',  (req, res)=> {
         user
     }
     res.json(result);
-});
+};
 
-app.delete('/users/:id',  (req, res) =>{
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+const deleteUser = (req, res) => {
     // const {id} = req.params;
     const id = req.params.id;
     const result = {
         message: `User with id ${id} deleted`
     }
     res.json(result);
-});
- 
-app.listen(port, ()=> {
-    console.log(`########## App started. Port: ${port} ############`);
-});
+};
+
+module.exports = {
+    getAllUsers,
+    createUser,
+    updateUser,
+    updatePartialUser,
+    deleteUser
+}
