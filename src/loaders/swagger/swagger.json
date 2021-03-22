@@ -1,5 +1,5 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "title": "API Rest base repo.",
     "description": "## This is a base api to start new projects.",
@@ -8,27 +8,17 @@
       "email": "adriansanchez88@gmail.com"
     }
   },
-  "host": "localhost:3000",
-  "basePath": "/api/v1",
-  "schemes": "http",
-  "definitions":{
-    "User":{
-      "type": "object",
-      "properties": {
-        "id":{
-          "description": "The user id.",
-          "type": "integer",          
-          "example": "3"
-        },
-        "name":{
-          "description": "The user name.",
-          "type":"string",          
-          "example":"Adrian"
-        }
-      },
-      "required":["id"]
-    }
-  },
+  
+  "servers":[
+    {
+      "url":"http://localhost:3000/api/v1",
+      "description": "Desarrollo"  
+    },
+    {
+      "url":"https://node-06-restserver-adrian.herokuapp.com/api/v1",
+      "description": "Producción"  
+    } 
+  ],
   "tags": [    
     {
       "name": "users",
@@ -42,16 +32,19 @@
           "users"
         ],
         "summary": "Get a list of all existing users.",
-        "description": "Get a list of all existing users.",
-        "operationId": "getAllUsers",
-        "produces": [
-          "application/json"
-        ],        
+        "description": "",             
         "responses": {
           "200": {
-            "description": "The list of users.",
-            "schema": {
-              "$ref": "#/definitions/User"              
+            "description": "The array of users in JSON format.",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "array",
+                  "items":{
+                    "$ref": "#/components/schemas/User"                    
+                  }
+                }
+              }
             }
           }
         }
@@ -61,17 +54,10 @@
           "users"
         ],
         "summary": "Create a new user.",
-        "description": "Create a new user.",
-        "operationId": "createUser",
-        "produces": [
-          "application/json"
-        ],        
+        "description": "",
         "responses": {
           "201": {
-            "description": "The user created.",
-            "schema": {
-              "$ref": "#/definitions/User"              
-            }
+            "description": "User created."
           }
         }
       }
@@ -82,25 +68,28 @@
           "users"
         ],
         "summary": "Update an existing user by providing the id.",
-        "description": "Update an existing user by providing the id.",
-        "operationId": "updateUser",
-        "produces": [
-          "application/json"
-        ],      
+        "description": "",           
         "parameters":[          
           {
             "name": "id",
             "in": "path",
             "description": "The id of the user that needs to be updated.",
             "required": true,
-            "type": "integer"
+            "schema": {
+              "type":"integer"
+            }
           }          
         ], 
         "responses": {
           "200": {
             "description": "The user updated",
-            "schema": {
-              "$ref": "#/definitions/User"              
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "$ref": "#/components/schemas/User" 
+                }
+              }              
             }
           }
         }
@@ -110,26 +99,21 @@
           "users"
         ],
         "summary": "Delete an existing user by providing the id.",
-        "description": "Delete an existing user by providing the id.",
-        "operationId": "deleteUser",
-        "produces": [
-          "application/json"
-        ],
+        "description": "",
         "parameters":[          
           {
             "name": "id",
             "in": "path",
             "description": "The id of the user that needs to be deleted.",
             "required": true,
-            "type": "integer"
+            "schema": {
+              "type":"integer"
+            }
           }          
-        ],      
+        ],     
         "responses": {
           "200": {
-            "description": "The user deleted.",
-            "schema": {
-              "$ref": "#/definitions/User"              
-            }
+            "description": "User deleted."
           }
         }
       }
@@ -137,52 +121,21 @@
   },
   "components": {
     "schemas": {
-      "InventoryItem": {
+      "User": {
         "required": [
-          "id",
-          "manufacturer",
-          "name",
-          "releaseDate"
+          "id"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          "id":{
+            "description": "The user id.",
+            "type": "integer",          
+            "example": "3"
           },
-          "name": {
-            "type": "string",
-            "example": "Widget Adapter"
-          },
-          "releaseDate": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2016-08-29T09:12:33.001Z"
-          },
-          "manufacturer": {
-            "$ref": "#/components/schemas/Manufacturer"
-          }
-        }
-      },
-      "Manufacturer": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "ACME Corporation"
-          },
-          "homePage": {
-            "type": "string",
-            "format": "url",
-            "example": "https://www.acme-corp.com"
-          },
-          "phone": {
-            "type": "string",
-            "example": "408-867-5309"
+          "name":{
+            "description": "The user name.",
+            "type":"string",          
+            "example":"Adrian"
           }
         }
       }
