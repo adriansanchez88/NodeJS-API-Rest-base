@@ -27,7 +27,8 @@ const getAllUsers = (req, res) => {
 const createUser = (req, res) => {
     
     const user = req.body;
-    user.id = 86546;
+    user.id = 3;
+    user.name = "Adrian";
 
     const result = {
         message: 'User created',
