@@ -55,6 +55,16 @@
         ],
         "summary": "Create a new user.",
         "description": "",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema":{              
+                  "$ref": "#/components/schemas/User"                    
+                }
+              }
+            }
+          },
         "responses": {
           "201": {
             "description": "User created."
@@ -68,7 +78,7 @@
           "users"
         ],
         "summary": "Update an existing user by providing the id.",
-        "description": "",           
+        "description": "",          
         "parameters":[          
           {
             "name": "id",
@@ -79,7 +89,17 @@
               "type":"integer"
             }
           }          
-        ], 
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema":{              
+                  "$ref": "#/components/schemas/User"                    
+                }
+              }
+            }
+          },
         "responses": {
           "200": {
             "description": "The user updated",
